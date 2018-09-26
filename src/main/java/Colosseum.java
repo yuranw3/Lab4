@@ -73,6 +73,22 @@ public class Colosseum {
      */
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = new Pokemon();
+        tempPokemon.hitPoints = MAX_HIT_POINTS;
+        System.out.println("Enter your attack level.");
+        tempPokemon.attackLevel = myScan.nextInt();
+        while (tempPokemon.attackLevel < 1 || tempPokemon.attackLevel >= MAX_HIT_POINTS) {
+            System.out.println("Sorry. The attack level must be between 1 and 49.");
+            System.out.println("Please enter an appropriate attack level.");
+            tempPokemon.attackLevel = myScan.nextInt();
+        }
+        System.out.println("Enter your defense level.");
+        tempPokemon.defenseLevel = myScan.nextInt();
+        while (tempPokemon.defenseLevel < 1 || tempPokemon.defenseLevel > MAX_HIT_POINTS - tempPokemon.attackLevel) {
+            System.out.print("Sorry. The defence level must be between 1 and ");
+            System.out.print((MAX_HIT_POINTS - tempPokemon.attackLevel) + " .");
+            System.out.println("Please enter an appropriate defense level.");
+            tempPokemon.attackLevel = myScan.nextInt();
+        }
         return tempPokemon;
     }
 
@@ -90,7 +106,13 @@ public class Colosseum {
      * Implement this function.
      */
     public static void printWhoIsAhead() {
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            System.out.println(firstPokemon.name + "is currently ahead!");
+        } else if (firstPokemon.hitPoints < secondPokemon.hitPoints) {
+            System.out.println(secondPokemon.name + "is currently ahead!");
+        } else {
+            System.out.println("There is a tie between " + firstPokemon.name + " and " + secondPokemon.name + " !");
+        }
     }
 
     /**
@@ -101,7 +123,11 @@ public class Colosseum {
      * Write this function.
      */
     public static void determineWinner() {
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints > secondPokemon.defenseLevel) {
+            System.out.println(firstPokemon.name + " is the winner of the battle!");
+        } else if (secondPokemon.hitPoints > firstPokemon.defenseLevel) {
+            System.out.println(secondPokemon.name + " is the winner of the battle!");
+        }
     }
 
     /**
